@@ -13,6 +13,7 @@ export async function GET() {
     return Response.json({ ok: true, databaseUrl: masked });
   } catch (err) {
     console.error('Database error:', err);
-    return Response.json({ ok: false, error: err.message, databaseUrl: masked }, { status: 500 });
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    return Response.json({ ok: false, error: message, databaseUrl: masked }, { status: 500 });
   }
 }
